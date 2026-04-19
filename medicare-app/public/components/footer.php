@@ -1,6 +1,6 @@
 <footer class="mt-5 pt-5 pb-4">
     <div class="container">
-        <div class="bento-card border-0 bg-primary-light p-5">
+        <div class="bento-card border-0 bg-primary-light p-4 p-md-5">
             <div class="row g-5">
                 <div class="col-lg-5">
                     <a class="navbar-brand fs-3 mb-4 d-block" href="index.php">

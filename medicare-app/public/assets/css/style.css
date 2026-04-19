@@ -179,26 +179,93 @@ h1, h2, h3, h4, .font-heading {
     text-transform: uppercase;
 }
 
-/* Checkout & Payment UI */
-.input-group-text {
-    background-color: transparent !important;
-    border-right: none;
+/* --- RESPONSIVE DESIGN LAYER --- */
+
+@media (max-width: 991.98px) {
+    .navbar {
+        width: 98%;
+        padding: 0.5rem 1rem;
+        margin: 10px auto;
+        border-radius: 20px;
+    }
+    
+    .navbar-collapse {
+        margin-top: 15px;
+        padding-bottom: 10px;
+    }
+    
+    .nav-link {
+        padding: 12px 20px !important;
+        border-radius: 12px;
+        margin-bottom: 5px;
+    }
+    
+    .nav-link:hover {
+        background: var(--primary-light);
+    }
 }
 
-.checkout-card {
-    transition: none !important;
+@media (max-width: 767.98px) {
+    :root {
+        --radius-bento: 18px;
+    }
+
+    h1 { font-size: 2.25rem !important; }
+    h2 { font-size: 1.75rem !important; }
+    h3 { font-size: 1.5rem !important; }
+
+    .dashboard-header {
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+    }
+
+    .bento-card {
+        padding: 1.5rem;
+    }
+
+    /* Fix for the problematic mobile navbar seen in screenshot */
+    .navbar-toggler {
+        border: none !important;
+        padding: 0;
+        box-shadow: none !important;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none !important;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    
+    /* Ensure the mobile menu doesn't break the pill shape */
+    .navbar-collapse {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        padding: 15px;
+        margin-top: 20px;
+        border: 1px solid var(--border-soft);
+    }
 }
 
-.form-control:focus {
-    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
-    border-color: var(--primary);
+@media (max-width: 480px) {
+    .dashboard-header {
+        padding: 2rem 1rem;
+    }
+    
+    .btn-primary, .btn-outline-primary {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
 
-.fa-cc-visa, .fa-cc-mastercard {
-    filter: grayscale(0.5);
-    transition: filter 0.3s ease;
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.fa-cc-visa:hover, .fa-cc-mastercard:hover {
-    filter: grayscale(0);
+.animate-fade-in {
+    animation: fadeIn 0.5s ease forwards;
 }

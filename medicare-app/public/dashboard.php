@@ -67,7 +67,7 @@ $appointments = $stmt->fetchAll();
     <!-- Bento Dashboard Header -->
     <div class="row g-4 mb-5">
         <div class="col-lg-8">
-            <div class="dashboard-header h-100 d-flex flex-column justify-content-center">
+            <div class="dashboard-header h-100 d-flex flex-column justify-content-center text-center text-lg-start p-4 p-md-5">
                 <h1 class="mb-2">Hello, <?php echo htmlspecialchars($user['fullname']); ?></h1>
                 <p class="fs-5 opacity-75 mb-0">
                     <?php echo ($role === 'doctor') ? 'Your clinical schedule is synchronized and ready.' : 'Welcome back to your personalized health hub.'; ?>
@@ -181,7 +181,7 @@ $appointments = $stmt->fetchAll();
         </div>
     <!-- Elite Exclusive: Neural Analytics Hub -->
     <?php if ($user['subscription_plan'] === 'elite'): ?>
-        <div class="bento-card elite-analytics-card p-5 mb-5 border-0">
+        <div class="bento-card elite-analytics-card p-4 p-md-5 mb-5 border-0">
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="d-flex align-items-center mb-4">

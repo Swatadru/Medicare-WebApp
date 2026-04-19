@@ -28,148 +28,21 @@ $appointments = $stmt->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Appointments | Medicare</title>
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #4361ee;
-            --primary-dark: #3a0ca3;
-            --primary-light: #4895ef;
-            --success: #38b000;
-            --warning: #ff9e00;
-            --danger: #ef233c;
-            --light: #f8f9fa;
-            --lighter: #ffffff;
-            --dark: #14213d;
-            --text: #2b2d42;
-            --text-light: #8d99ae;
-            --border: #e9ecef;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .page-header h1 {
-            font-size: 2.2rem;
-            color: var(--dark);
-            margin-bottom: 1rem;
-        }
-
-        .appointments-list {
-            display: grid;
-            gap: 1.5rem;
-        }
-
         .appointment-card {
-            background: var(--lighter);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--primary);
-            transition: all 0.3s ease;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 1.5rem;
         }
-
-        .appointment-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-        }
-
-        .appointment-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .appointment-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .appointment-status {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .status-pending {
-            background-color: rgba(255, 158, 0, 0.1);
-            color: var(--warning);
-        }
-
-        .status-confirmed {
-            background-color: rgba(56, 176, 0, 0.1);
-            color: var(--success);
-        }
-
-        .status-cancelled {
-            background-color: rgba(239, 35, 60, 0.1);
-            color: var(--danger);
-        }
-
-        .appointment-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
         .detail-icon {
             color: var(--primary);
-            font-size: 1.1rem;
-            width: 24px;
+            width: 25px;
             text-align: center;
         }
-
-        .detail-label {
-            font-weight: 500;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .detail-value {
-            color: var(--dark);
-            font-size: 0.95rem;
-        }
-
-        .no-appointments {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-light);
-        }
-
-        .no-appointments i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .page-header h1 {
-                font-size: 1.8rem;
-            }
-        }
+        .status-pending { color: var(--warning); background: rgba(245, 158, 11, 0.1); }
+        .status-confirmed { color: var(--success); background: rgba(16, 185, 129, 0.1); }
+        .status-cancelled { color: var(--danger); background: rgba(239, 68, 68, 0.1); }
     </style>
 </head>
 <body>
@@ -184,47 +57,36 @@ $appointments = $stmt->fetchAll();
         <div class="appointments-list">
             <?php if (!empty($appointments)): ?>
                 <?php foreach ($appointments as $appointment): ?>
-                    <div class="appointment-card">
-                        <div class="appointment-header">
-                            <h3 class="appointment-title">
-                                Dr. <?= htmlspecialchars($appointment['doctor_name']) ?> - <?= htmlspecialchars($appointment['specialization']) ?>
+                    <div class="bento-card appointment-card animate-fade-in">
+                        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                            <h3 class="mb-0 h5 fw-bold">
+                                <i class="fas fa-user-md text-primary me-2"></i>
+                                Dr. <?= htmlspecialchars($appointment['doctor_name']) ?>
                             </h3>
-                            <span class="appointment-status status-<?= strtolower($appointment['status'] ?? 'pending') ?>">
+                            <span class="status-pill status-<?= strtolower($appointment['status'] ?? 'pending') ?>">
                                 <?= ucfirst($appointment['status'] ?? 'Pending') ?>
                             </span>
                         </div>
                         
-                        <div class="appointment-details">
-                            <div class="detail-item">
-                                <span class="detail-icon"><i class="fas fa-calendar-day"></i></span>
-                                <div>
-                                    <div class="detail-label">Date</div>
-                                    <div class="detail-value"><?= date('F j, Y', strtotime($appointment['appointment_date'])) ?></div>
-                                </div>
+                        <div class="row g-4">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="small text-muted mb-1"><i class="fas fa-calendar-day me-1"></i> Date</div>
+                                <div class="fw-bold"><?= date('F j, Y', strtotime($appointment['appointment_date'])) ?></div>
                             </div>
                             
-                            <div class="detail-item">
-                                <span class="detail-icon"><i class="fas fa-clock"></i></span>
-                                <div>
-                                    <div class="detail-label">Time</div>
-                                    <div class="detail-value"><?= date('g:i A', strtotime($appointment['appointment_time'])) ?></div>
-                                </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="small text-muted mb-1"><i class="fas fa-clock me-1"></i> Time</div>
+                                <div class="fw-bold"><?= date('g:i A', strtotime($appointment['appointment_time'])) ?></div>
                             </div>
                             
-                            <div class="detail-item">
-                                <span class="detail-icon"><i class="fas fa-stethoscope"></i></span>
-                                <div>
-                                    <div class="detail-label">Purpose</div>
-                                    <div class="detail-value"><?= htmlspecialchars($appointment['purpose'] ?? 'General Checkup') ?></div>
-                                </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="small text-muted mb-1"><i class="fas fa-stethoscope me-1"></i> Specialization</div>
+                                <div class="fw-bold text-primary"><?= htmlspecialchars($appointment['specialization']) ?></div>
                             </div>
                             
-                            <div class="detail-item">
-                                <span class="detail-icon"><i class="fas fa-info-circle"></i></span>
-                                <div>
-                                    <div class="detail-label">Notes</div>
-                                    <div class="detail-value"><?= !empty($appointment['notes']) ? htmlspecialchars($appointment['notes']) : 'None' ?></div>
-                                </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="small text-muted mb-1"><i class="fas fa-info-circle me-1"></i> Purpose</div>
+                                <div class="fw-bold small"><?= htmlspecialchars($appointment['purpose'] ?? 'General Checkup') ?></div>
                             </div>
                         </div>
                     </div>
