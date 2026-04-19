@@ -1,0 +1,13 @@
+# Environments
+.env
+
+# PHP Binaries (External)
+bin/
+php/
+
+# Logs
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
